@@ -2,18 +2,25 @@
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
-import { SignInWithEmailAndPassword } from '../../services/firebase';
+import {
+  ErrorFirebase,
+  SignInWithEmailAndPassword,
+} from '../../services/firebase';
 import { Container, Wrapper, Inputs, RememberMe } from './styles';
 import { Input, NavSignRegister } from '../../components';
+import { Button } from '../../components/Button';
 
 export const SignIn = () => {
   const [email, setEmail] = useState('');
+  const [error, setError] = useState({} as ErrorFirebase);
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [requesting, setRequesting] = useState(false);
   const routerHistory = useHistory();
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setError({} as ErrorFirebase);
 
     if (e.target.name === 'email') {
       setEmail(e.target.value);
@@ -25,7 +32,15 @@ export const SignIn = () => {
   const onSubmit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault();
+      setError({} as ErrorFirebase);
+      setRequesting(true);
       const response = await SignInWithEmailAndPassword(email, password);
+      setRequesting(false);
+
+      if (response?.error) {
+        setError(response.error);
+        return;
+      }
 
       if (response?.data) {
         routerHistory.push('/');
@@ -45,6 +60,7 @@ export const SignIn = () => {
         <form action="submit" onSubmit={onSubmit}>
           <div>
             <span>TYPE EMAIL AND PASSWORD</span>
+            {!!error && <strong>{error.message}</strong>}
           </div>
           <Inputs>
             <Input
@@ -52,6 +68,8 @@ export const SignIn = () => {
               value={email}
               onChange={onChange}
               startIcon={FaEnvelope}
+              title="E-mail"
+              placeholder="E-mail"
             />
             <Input
               name="password"
@@ -59,6 +77,8 @@ export const SignIn = () => {
               value={password}
               onChange={onChange}
               startIcon={FaLock}
+              title="Password"
+              placeholder="Password"
             />
             <RememberMe>
               <div>
@@ -73,7 +93,9 @@ export const SignIn = () => {
               <Link to="/forgotPassword">Forgot Password? </Link>
             </RememberMe>
           </Inputs>
-          <button type="submit">Sign In Now </button>
+          <Button type="submit" showSpinner={requesting}>
+            Sign In Now
+          </Button>
         </form>
       </Container>
     </Wrapper>

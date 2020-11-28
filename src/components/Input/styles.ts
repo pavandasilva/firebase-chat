@@ -4,6 +4,15 @@ interface InputContainerProps {
   isActive: boolean;
 }
 
+export const Label = styled.span<InputContainerProps>`
+  display: flex;
+  align-self: flex-start;
+  opacity: ${props => (props.isActive ? '1' : 0)};
+  color: ${props => props.theme.colors.secondary} !important;
+  transition: opacity 0.5s;
+  margin: 5px 0px;
+`;
+
 export const Container = styled.div<InputContainerProps>`
   display: flex;
   align-items: center;
@@ -17,8 +26,7 @@ export const Container = styled.div<InputContainerProps>`
         ? props.theme.colors.secondary
         : props.theme.colors.extraLightBackground};
   border-radius: 6px;
-
-  transition: border 0.5s ease;
+  transition: border 0.5s;
 
   svg:first-of-type {
     fill: ${props =>
@@ -26,7 +34,7 @@ export const Container = styled.div<InputContainerProps>`
         ? props.theme.colors.secondary
         : props.theme.colors.lightText};
 
-    transition: fill 0.5s ease;
+    transition: fill 0.5s;
     width: 18px;
     height: 18px;
   }
@@ -38,7 +46,7 @@ export const Container = styled.div<InputContainerProps>`
     height: 100%;
     border: none;
     background: transparent;
-    transition: color 0.5s ease;
+    transition: color 0.5s;
 
     color: ${props =>
       props.isActive
