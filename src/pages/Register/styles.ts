@@ -46,5 +46,5 @@ export const Container = styled.div`
 `;
 
 export const Inputs = styled.div`
-  margin-top: 45px;
+  margin-top: 25px;
 `;
