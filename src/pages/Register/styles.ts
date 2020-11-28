@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
 export const Wrapper = styled.div`
@@ -22,8 +22,11 @@ export const Container = styled.div`
     margin-top: 60px;
 
     & > div {
+      position: relative;
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       width: 100%;
 
       span {
@@ -32,6 +35,12 @@ export const Container = styled.div`
         line-height: 16px;
         letter-spacing: 0.1em;
         color: ${props => props.theme.colors.lightText};
+
+        &:last-of-type {
+          position: absolute;
+          top: 20px;
+          color: ${props => props.theme.colors.danger};
+        }
       }
     }
 
@@ -60,45 +69,9 @@ export const Container = styled.div`
 export const Inputs = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
+  margin-top: 45px;
 
   & > div + div {
     margin-top: 24px;
-  }
-`;
-
-export const RememberMe = styled.div`
-  display: flex;
-  align-items: center;
-  flex: 1;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    flex: 1;
-  }
-
-  input {
-    cursor: pointer;
-  }
-
-  span {
-    margin-left: 15px;
-  }
-
-  a {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    text-decoration: none;
-    width: 127px;
-    height: 16px;
-    letter-spacing: 0.075em;
-    font-size: 14px;
-    color: ${props => props.theme.colors.lightText};
-
-    &:hover {
-      color: ${props => props.theme.colors.primaryText};
-    }
   }
 `;

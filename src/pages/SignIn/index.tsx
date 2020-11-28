@@ -1,16 +1,18 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FaLock, FaEnvelope, FaEye } from 'react-icons/fa';
+import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { SignInWithEmailAndPassword } from '../../services/firebase';
-import { Container, Wrapper, Navigator, Inputs } from './styles';
-import { Input } from '../../components';
+import { Container, Wrapper, Inputs, RememberMe } from './styles';
+import { Input, NavSignRegister } from '../../components';
 
 export const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const routerHistory = useHistory();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (e.target.name === 'email') {
@@ -18,27 +20,28 @@ export const SignIn = () => {
     } else {
       setPassword(e.target.value);
     }
-  };
+  }, []);
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const response = await SignInWithEmailAndPassword(email, password);
+  const onSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      const response = await SignInWithEmailAndPassword(email, password);
 
-    if (response?.data) {
-      routerHistory.push('/');
-    }
-  };
+      if (response?.data) {
+        routerHistory.push('/');
+      }
+    },
+    [email, password, routerHistory],
+  );
+
+  const handleChangeRememberMe = useCallback(() => {
+    setRememberMe(rem => !rem);
+  }, []);
+
   return (
     <Wrapper>
       <Container>
-        <Navigator>
-          <Link to="signin">
-            <span>SIGN IN</span>
-          </Link>
-          <Link to="register">
-            <span>REGISTER</span>
-          </Link>
-        </Navigator>
+        <NavSignRegister currentTab="signin" />
         <form action="submit" onSubmit={onSubmit}>
           <div>
             <span>TYPE EMAIL AND PASSWORD</span>
@@ -57,7 +60,20 @@ export const SignIn = () => {
               onChange={onChange}
               startIcon={FaLock}
             />
+            <RememberMe>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={handleChangeRememberMe}
+                />
+                <span>Remember me</span>
+              </div>
+
+              <Link to="/forgotPassword">Forgot Password? </Link>
+            </RememberMe>
           </Inputs>
+          <button type="submit">Sign In Now </button>
         </form>
       </Container>
     </Wrapper>

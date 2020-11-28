@@ -14,4 +14,9 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     font-size: 12px;
   }
+
+  button {
+    cursor: pointer;
+    border: none;
+  }
 `;

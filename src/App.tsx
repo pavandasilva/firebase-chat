@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { Home, SignUp, SignIn } from './pages';
+import { Home, Register, SignIn } from './pages';
 import GlobalStyle from './styles/global';
 import { darkTheme } from './styles/themes';
 
@@ -28,8 +28,8 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/signup">
-            <SignUp />
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/signin">
             <SignIn />
