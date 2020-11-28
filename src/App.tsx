@@ -1,8 +1,11 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Home, SignUp, SignIn } from './pages';
+import GlobalStyle from './styles/global';
+import { darkTheme } from './styles/themes';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -19,19 +22,22 @@ if (!firebase.apps.length) {
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={darkTheme}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/signin">
+            <SignIn />
+          </Route>
+        </Switch>
+      </Router>
+      <GlobalStyle />
+    </ThemeProvider>
   );
 }
 

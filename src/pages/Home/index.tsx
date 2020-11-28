@@ -1,7 +1,26 @@
 import React from 'react';
+import { Card } from '../../components';
 
-// import { Container } from './styles';
+import { Wrapper, Container, Aside, Content } from './styles';
 
 export const Home = () => {
-  return <h1>Home</h1>;
+  return (
+    <Wrapper>
+      <Container>
+        <Aside>
+          <h1>Roms</h1>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </Aside>
+        <Content>
+          <header>header</header>
+          <div>Chat</div>
+        </Content>
+      </Container>
+    </Wrapper>
+  );
 };

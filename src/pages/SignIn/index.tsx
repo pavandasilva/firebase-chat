@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { FaLock, FaEnvelope, FaEye } from 'react-icons/fa';
 import { SignInWithEmailAndPassword } from '../../services/firebase';
-import { Container } from './styles';
+import { Container, Wrapper, Navigator, Inputs } from './styles';
+import { Input } from '../../components';
 
 export const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -27,13 +29,37 @@ export const SignIn = () => {
     }
   };
   return (
-    <Container>
-      <h1>SignIn</h1>
-      <form action="submit" onSubmit={onSubmit}>
-        <input name="email" value={email} onChange={onChange} />
-        <input name="password" value={password} onChange={onChange} />
-        <button type="submit">Enter</button>
-      </form>
-    </Container>
+    <Wrapper>
+      <Container>
+        <Navigator>
+          <Link to="signin">
+            <span>SIGN IN</span>
+          </Link>
+          <Link to="register">
+            <span>REGISTER</span>
+          </Link>
+        </Navigator>
+        <form action="submit" onSubmit={onSubmit}>
+          <div>
+            <span>TYPE EMAIL AND PASSWORD</span>
+          </div>
+          <Inputs>
+            <Input
+              name="email"
+              value={email}
+              onChange={onChange}
+              startIcon={FaEnvelope}
+            />
+            <Input
+              name="password"
+              type="password"
+              value={password}
+              onChange={onChange}
+              startIcon={FaLock}
+            />
+          </Inputs>
+        </form>
+      </Container>
+    </Wrapper>
   );
 };
