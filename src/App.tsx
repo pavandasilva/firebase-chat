@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router } from 'react-router-dom';
+
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
+import { Routes } from './routes/routes';
+
+firebase.initializeApp({
+  apiKey: 'AIzaSyDBolDVA5Ob3TqHVbzhH4qZdcCYkuojCYI',
+  authDomain: 'chat-7a2be.firebaseapp.com',
+  databaseURL: 'https://chat-7a2be.firebaseio.com',
+  projectId: 'chat-7a2be',
+  storageBucket: 'chat-7a2be.appspot.com',
+  messagingSenderId: '257130550430',
+  appId: '1:257130550430:web:2802356afb733308d8d78f',
+  measurementId: 'G-DG8CXPBKGW',
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes />
+    </Router>
   );
 }
 
