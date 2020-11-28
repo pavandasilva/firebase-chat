@@ -25,11 +25,11 @@
         "react-hooks"
     ],
     "rules": {
+      "@typescript-eslint/no-unused-vars": "warn",
       "prettier/prettier": "error",
       "@typescript-eslint/no-use-before-define": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "import/prefer-default-export" : "off",
-      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
       "react/jsx-one-expression-per-line": "off",
       "global-require": "off",
       "react-native/no-raw-text": "off",
@@ -40,6 +40,9 @@
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "no-use-before-define": "off",
+      "eslint-disable-next-line" : "off",
+      "react/require-default-props": "off",
+      "react/jsx-props-no-spreading" : "off",
       "react/jsx-filename-extension": [
         1,
         {
