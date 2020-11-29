@@ -1,17 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { ErrorFirebase } from '.';
-
-interface User {
-  displayName: string;
-  email: string;
-  emailVerified: boolean;
-  phoneNumber: string;
-  photoURL: string;
-}
+import { UserModel } from './models/userModel';
 
 interface SignInWithEmailAndPasswordResponse {
-  data?: User;
+  data?: UserModel;
   error: ErrorFirebase | undefined;
 }
 
@@ -24,7 +17,7 @@ export async function SignInWithEmailAndPassword(
       .auth()
       .signInWithEmailAndPassword(email, password);
 
-    let dataResponse = {} as User;
+    let dataResponse = {} as UserModel;
 
     if (response?.user) {
       const {

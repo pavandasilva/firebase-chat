@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { Container, Inputs, Wrapper } from './styles';
 import 'firebase/auth';
@@ -12,6 +12,7 @@ import { Button } from '../../components/Button';
 
 export const Register = () => {
   const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({} as ErrorFirebase);
@@ -26,6 +27,8 @@ export const Register = () => {
       setEmail(e.target.value);
     } else if (e.target.name === 'password') {
       setPassword(e.target.value);
+    } else if (e.target.name === 'display-name') {
+      setDisplayName(e.target.value);
     } else {
       setConfirmPassword(e.target.value);
     }
@@ -50,6 +53,7 @@ export const Register = () => {
       const { error: createUserError } = await CreateUserWithEmailAndPassword(
         email,
         password,
+        displayName,
       );
 
       setRequesting(false);
@@ -60,7 +64,7 @@ export const Register = () => {
         routerHistory.push('/signin');
       }
     },
-    [confirmPassword, email, password, routerHistory],
+    [confirmPassword, displayName, email, password, routerHistory],
   );
 
   return (
@@ -80,6 +84,14 @@ export const Register = () => {
               value={email}
               onChange={onChange}
               startIcon={FaEnvelope}
+            />
+            <Input
+              name="display-name"
+              placeholder="Display name"
+              title="Display Name"
+              value={displayName}
+              onChange={onChange}
+              startIcon={FaUser}
             />
             <Input
               name="password"

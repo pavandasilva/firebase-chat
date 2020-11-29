@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
+import firebase from 'firebase/app';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import { Button } from '../../components/Button';
@@ -18,6 +20,10 @@ import {
 } from './styles';
 
 export const Home = () => {
+  const [user, loading, error] = useAuthState(firebase.auth());
+
+  console.log(user);
+
   const handleSendingMessages = () => {
     console.log('funcionou handleSendingMessages');
   };
@@ -31,10 +37,10 @@ export const Home = () => {
           </header>
           <Profile>
             <div>
-              <img />
+              {user?.photoURL} <img src={user?.photoURL} />
             </div>
-            <strong>Maria Joana</strong>
-            <p>maria@gmail.com</p>
+            <strong>{user?.displayName}</strong>
+            <p>{user?.email}</p>
             <Button>Sign Out</Button>
           </Profile>
           <Roms>

@@ -12,7 +12,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 397px;
-  height: 478px;
+  height: 520px;
   padding: 20px 20px;
   background: ${props => props.theme.colors.lightBackground};
   border-radius: 26px;
