@@ -132,6 +132,7 @@ export const Main = styled.div`
   flex-direction: column;
   display: flex;
   flex: 1;
+  position: relative;
 
   header {
     padding: 0px 30px;
@@ -148,6 +149,13 @@ export const Main = styled.div`
       color: ${props => props.theme.colors.secondary};
       letter-spacing: 0.15em;
     }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    padding: 0px 30px;
   }
 `;
 

@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import { Button } from '../../components/Button';
-import { Bubble, Card } from '../../components';
+import { Bubble, Card, SendMessageInput } from '../../components';
 import {
   Wrapper,
   Container,
@@ -17,6 +18,10 @@ import {
 } from './styles';
 
 export const Home = () => {
+  const handleSendingMessages = () => {
+    console.log('funcionou handleSendingMessages');
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -57,6 +62,9 @@ export const Home = () => {
             <Card type="right" />
             <Card type="left" />
           </Messages>
+          <footer>
+            <SendMessageInput handleSendingMessages={handleSendingMessages} />
+          </footer>
         </Main>
       </Container>
     </Wrapper>
