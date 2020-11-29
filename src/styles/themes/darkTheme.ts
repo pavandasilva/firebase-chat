@@ -13,5 +13,6 @@ export const darkTheme = {
     primaryText: '#F6F6F6',
     lightText: '#C4C4C4',
     lazyLoading: '#C4C4C4',
+    divider: '#474747',
   },
 };

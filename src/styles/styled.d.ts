@@ -16,6 +16,7 @@ declare module 'styled-components' {
       primaryText: string;
       lazyLoading: string;
       lightText: string;
+      divider: string;
     };
   }
 }
