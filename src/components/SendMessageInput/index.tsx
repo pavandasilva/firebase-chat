@@ -36,6 +36,7 @@ export const SendMessageInput = ({
   return (
     <Container isFocus={isFocus} onClick={handleContainerOnClick}>
       <input
+        ref={inputEl}
         placeholder="Type a message..."
         onFocus={handeInputOnFocus}
         onBlur={handeInputOnBlur}
