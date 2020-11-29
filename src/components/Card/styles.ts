@@ -1,78 +1,65 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  h1 {
-    font-size: 14px;
-  }
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.63);
+interface CardProps {
+  type: 'right' | 'left';
+}
+
+export const Container = styled.div<CardProps>`
+  display: flex;
+  flex-direction: column;
+  margin-left: ${props => (props.type === 'right' ? '82px' : '0px')};
+  box-shadow: ${props =>
+    props.type === 'right' ? '0px 0px 9px 0px rgba(0, 0, 0, 0.63)' : 'none'};
+
+  background-color: ${props =>
+    props.type === 'right' ? props.theme.colors.background : 'transparent'};
   border-radius: 6px;
-  margin-bottom: 20px;
-  padding: 10px 25px 20px;
-  max-height: 200px;
+  padding: 25px 25px 40px;
 `;
 
-export const LastMessage = styled.div`
-  h3 {
-    margin-top: 7px;
-    font-weight: 200;
+export const Header = styled.div<CardProps>`
+  display: flex;
+  flex-direction: row;
+  box-shadow: none;
+  justify-content: ${props =>
+    props.type === 'right' ? 'flex-end' : 'flex-start'};
+
+  width: 100%;
+  padding: 0px;
+`;
+
+export const Avatar = styled.div`
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
+export const Info = styled.div<CardProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: ${props => (props.type === 'right' ? 'flex-end' : 'flex-start')};
+  margin-right: 16px;
+  margin-left: ${props => (props.type === 'left' ? '16px' : '0px')};
+
+  strong {
+    font-size: 12px;
+    color: ${props => props.theme.colors.primaryText};
+  }
+  span {
+    color: ${props => props.theme.colors.lightText};
     font-size: 12px;
   }
-  p {
-    margin-top: 5px;
-  }
 `;
 
-export const TitleMessage = styled.div`
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  & > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background: ${props => props.theme.colors.lazyLoading};
-    overflow: hidden;
-
-    img {
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-    }
-  }
-
-  span {
-    margin-left: 7px;
-  }
-`;
-
-export const Message = styled.div`
-  white-space: nowrap;
-  word-wrap: break-word;
-  width: 100%;
-  height: 35px;
-  color: #ff8000;
-  overflow: hidden;
-`;
-
-export const TitleCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 7px;
-  border-bottom: solid 1px ${props => props.theme.colors.lazyLoading};
-`;
-
-export const Bubble = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${props => props.theme.colors.danger};
-  height: 14px;
-  width: 14px;
-  border-radius: 50%;
-  color: ${props => props.theme.colors.lightText};
-  margin-left: 7px;
+export const Text = styled.div`
+  margin-top: 20px;
+  text-align: justify;
+  text-justify: inter-word;
 `;

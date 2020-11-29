@@ -2,7 +2,7 @@
 import React from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import { Button } from '../../components/Button';
-import { Bubble } from '../../components';
+import { Bubble, Card } from '../../components';
 import {
   Wrapper,
   Container,
@@ -13,6 +13,7 @@ import {
   Nav,
   Hamburger,
   Title,
+  Messages,
 } from './styles';
 
 export const Home = () => {
@@ -52,6 +53,10 @@ export const Home = () => {
               <FaAdjust />
             </Nav>
           </header>
+          <Messages>
+            <Card type="right" />
+            <Card type="left" />
+          </Messages>
         </Main>
       </Container>
     </Wrapper>

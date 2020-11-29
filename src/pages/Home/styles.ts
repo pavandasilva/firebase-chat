@@ -129,6 +129,7 @@ export const Roms = styled.section`
 
 export const Main = styled.div`
   margin-left: 278px;
+  flex-direction: column;
   display: flex;
   flex: 1;
 
@@ -200,4 +201,8 @@ export const Title = styled.div`
   font-size: 14px;
   letter-spacing: 0.075em;
   color: ${props => props.theme.colors.secondary};
+`;
+
+export const Messages = styled.div`
+  padding: 35px;
 `;
