@@ -104,6 +104,9 @@ export const Roms = styled.section`
     list-style: none;
 
     li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       margin-top: 15px;
       text-decoration: none;
       font-size: 14px;
@@ -115,6 +118,10 @@ export const Roms = styled.section`
       &:hover {
         color: ${props => props.theme.colors.primaryText};
         margin-left: 3px;
+      }
+
+      & > div {
+        margin-left: 10px;
       }
     }
   }

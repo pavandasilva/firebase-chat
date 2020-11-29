@@ -2,6 +2,7 @@
 import React from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import { Button } from '../../components/Button';
+import { Bubble } from '../../components';
 import {
   Wrapper,
   Container,
@@ -33,7 +34,9 @@ export const Home = () => {
           <Roms>
             <strong>ROMS</strong>
             <ul>
-              <li>#Amigos</li>
+              <li>
+                #Amigos <Bubble value={10} />
+              </li>
               <li>#Sexo Casual</li>
             </ul>
           </Roms>
