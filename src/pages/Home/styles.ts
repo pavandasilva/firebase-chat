@@ -237,6 +237,20 @@ export const Li = styled.li<LiProps>`
 `;
 
 export const ScrollBar = styled(PerfectScrollbar)`
-  margin-top: 7px;
+  margin-top: 6px;
   height: calc(100% - 130px);
+
+  &.ps .ps__rail-y.ps--clicking {
+    background-color: ${props => props.theme.colors.background};
+    opacity: 0.9;
+  }
+  &.ps .ps__rail-x:hover,
+  &.ps .ps__rail-y:hover,
+  &.ps .ps__rail-x:focus,
+  &.ps .ps__rail-y:focus,
+  &.ps .ps__rail-x.ps--clicking,
+  &.ps .ps__rail-y.ps--clicking {
+    background-color: ${props => props.theme.colors.background};
+    opacity: 0.9;
+  }
 `;
