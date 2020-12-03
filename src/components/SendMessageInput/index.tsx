@@ -4,11 +4,11 @@ import { FaPaperPlane } from 'react-icons/fa';
 import { Container } from './styles';
 
 interface SendMessageInputProps {
-  handleSendingMessages: (value: string) => void;
+  handleSendingMessagesProp: (value: string) => void;
 }
 
 export const SendMessageInput = ({
-  handleSendingMessages,
+  handleSendingMessagesProp,
 }: SendMessageInputProps) => {
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('');
@@ -33,6 +33,17 @@ export const SendMessageInput = ({
     [],
   );
 
+  const handleInputOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendingMessages();
+    }
+  };
+
+  const handleSendingMessages = () => {
+    handleSendingMessagesProp(value);
+    setValue('');
+  };
+
   return (
     <Container isFocus={isFocus} onClick={handleContainerOnClick}>
       <input
@@ -41,9 +52,10 @@ export const SendMessageInput = ({
         onFocus={handeInputOnFocus}
         onBlur={handeInputOnBlur}
         onChange={handleInputOnchange}
+        onKeyDown={handleInputOnKeyDown}
         value={value}
       />
-      <FaPaperPlane onClick={() => handleSendingMessages(value)} />
+      <FaPaperPlane onClick={handleSendingMessages} />
     </Container>
   );
 };

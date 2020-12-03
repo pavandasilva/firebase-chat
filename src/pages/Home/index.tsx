@@ -135,7 +135,9 @@ export const Home = () => {
               })}
           </Messages>
           <footer>
-            <SendMessageInput handleSendingMessages={handleSendingMessages} />
+            <SendMessageInput
+              handleSendingMessagesProp={handleSendingMessages}
+            />
           </footer>
         </Main>
       </Container>
