@@ -8,6 +8,7 @@ export const Container = styled.div<CardProps>`
   display: flex;
   flex-direction: column;
   margin-left: ${props => (props.type === 'right' ? '82px' : '0px')};
+  margin-bottom: 20px;
   box-shadow: ${props =>
     props.type === 'right' ? '0px 0px 9px 0px rgba(0, 0, 0, 0.63)' : 'none'};
 

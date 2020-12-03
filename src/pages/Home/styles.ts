@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -136,10 +137,12 @@ export const Main = styled.div`
   }
 
   footer {
+    display: flex;
     position: absolute;
     bottom: 20px;
     width: 100%;
     padding: 0px 30px;
+    z-index: 2;
   }
 `;
 
@@ -197,6 +200,7 @@ export const Title = styled.div`
 
 export const Messages = styled.div`
   padding: 35px;
+  height: calc(100% - 100px);
 `;
 
 interface LiProps {
@@ -230,4 +234,9 @@ export const Li = styled.li<LiProps>`
       color: ${props.theme.colors.primaryText};
       margin-left: 3px;
     `}
+`;
+
+export const ScrollBar = styled(PerfectScrollbar)`
+  margin-top: 7px;
+  height: calc(100% - 130px);
 `;

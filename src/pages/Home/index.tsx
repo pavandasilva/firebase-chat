@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
+
 import { Button } from '../../components/Button';
 import { Card, SendMessageInput } from '../../components';
 import 'firebase/firestore';
@@ -25,6 +26,7 @@ import {
   Title,
   Messages,
   Li,
+  ScrollBar,
 } from './styles';
 import { Message, RomModel } from '../../interfaces';
 
@@ -120,20 +122,23 @@ export const Home = () => {
               <FaAdjust />
             </Nav>
           </header>
-          <Messages>
-            {messages?.length &&
-              messages.map(message => {
-                return (
-                  <Card
-                    type={user?.uid === message?.user?.uid ? 'left' : 'right'}
-                    avatar={message?.user?.photoURL as string}
-                    displayName={message?.user?.displayName as string}
-                  >
-                    {message.message}
-                  </Card>
-                );
-              })}
-          </Messages>
+          <ScrollBar>
+            <Messages>
+              {messages?.length &&
+                messages.map(message => {
+                  return (
+                    <Card
+                      type={user?.uid === message?.user?.uid ? 'left' : 'right'}
+                      avatar={message?.user?.photoURL as string}
+                      displayName={message?.user?.displayName as string}
+                    >
+                      {message.message}
+                    </Card>
+                  );
+                })}
+            </Messages>
+          </ScrollBar>
+
           <footer>
             <SendMessageInput
               handleSendingMessagesProp={handleSendingMessages}
