@@ -2,10 +2,11 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { Home, Register, SignIn } from './pages';
 import GlobalStyle from './styles/global';
 import { darkTheme } from './styles/themes';
+
+import 'firebase/firestore';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -31,7 +32,7 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/signin">
+          <Route path="/sign-in">
             <SignIn />
           </Route>
         </Switch>

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { ErrorFirebase } from '.';
-import { UserModel } from './models/userModel';
+import { ErrorFirebase, UpdateUser } from '.';
+import { UserModel } from '../../interfaces';
 
 interface SignInWithEmailAndPasswordResponse {
   data?: UserModel;
@@ -26,14 +26,25 @@ export async function SignInWithEmailAndPassword(
         emailVerified,
         phoneNumber,
         photoURL,
+        uid,
       } = response.user;
 
-      dataResponse = {
-        displayName: displayName as string,
+      UpdateUser({
+        displayName,
         email: emailResponse as string,
         emailVerified,
-        phoneNumber: phoneNumber as string,
-        photoURL: photoURL as string,
+        phoneNumber,
+        photoURL,
+        uid,
+      });
+
+      dataResponse = {
+        displayName,
+        email: emailResponse as string,
+        emailVerified,
+        phoneNumber,
+        photoURL,
+        uid,
       };
     }
 

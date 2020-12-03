@@ -20,6 +20,7 @@ export const Container = styled.div<SendMessageInputProps>`
   transition: border 0.5s;
 
   svg {
+    cursor: pointer;
     fill: ${props =>
       props.isFocus
         ? props.theme.colors.secondary

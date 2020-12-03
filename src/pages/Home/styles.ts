@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -76,6 +76,12 @@ export const Profile = styled.section`
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover {
+      border: solid 1px ${props => props.theme.colors.secondary};
+    }
 
     img {
       width: 50px;
@@ -102,28 +108,6 @@ export const Roms = styled.section`
   ul {
     margin-top: 5px;
     list-style: none;
-
-    li {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-top: 15px;
-      text-decoration: none;
-      font-size: 14px;
-      letter-spacing: 0.1em;
-      color: ${props => props.theme.colors.lightText};
-      cursor: pointer;
-      transition: all 0.5s;
-
-      &:hover {
-        color: ${props => props.theme.colors.primaryText};
-        margin-left: 3px;
-      }
-
-      & > div {
-        margin-left: 10px;
-      }
-    }
   }
 `;
 
@@ -213,4 +197,37 @@ export const Title = styled.div`
 
 export const Messages = styled.div`
   padding: 35px;
+`;
+
+interface LiProps {
+  selected: boolean;
+}
+
+export const Li = styled.li<LiProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: ${props => props.theme.colors.lightText};
+  cursor: pointer;
+  transition: all 0.5s;
+
+  &:hover {
+    color: ${props => props.theme.colors.primaryText};
+    margin-left: 3px;
+  }
+
+  & > div {
+    margin-left: 10px;
+  }
+
+  ${props =>
+    props.selected &&
+    css`
+      color: ${props.theme.colors.primaryText};
+      margin-left: 3px;
+    `}
 `;

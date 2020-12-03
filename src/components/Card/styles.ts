@@ -33,6 +33,7 @@ export const Avatar = styled.div`
   height: 40px;
   overflow: hidden;
   border-radius: 50%;
+  background-color: ${props => props.theme.colors.lazyLoading};
 
   img {
     width: 40px;

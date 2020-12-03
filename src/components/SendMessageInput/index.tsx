@@ -4,7 +4,7 @@ import { FaPaperPlane } from 'react-icons/fa';
 import { Container } from './styles';
 
 interface SendMessageInputProps {
-  handleSendingMessages: () => void;
+  handleSendingMessages: (value: string) => void;
 }
 
 export const SendMessageInput = ({
@@ -43,7 +43,7 @@ export const SendMessageInput = ({
         onChange={handleInputOnchange}
         value={value}
       />
-      <FaPaperPlane onClick={handleSendingMessages} />
+      <FaPaperPlane onClick={() => handleSendingMessages(value)} />
     </Container>
   );
 };

@@ -1,11 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
-import firebase from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import React from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import React, { useState } from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
+import firebase from 'firebase/app';
+import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button';
-import { Bubble, Card, SendMessageInput } from '../../components';
+import { Card, SendMessageInput } from '../../components';
+import 'firebase/firestore';
+
 import {
   Wrapper,
   Container,
@@ -17,15 +23,42 @@ import {
   Hamburger,
   Title,
   Messages,
+  Li,
 } from './styles';
+import { Message, RomModel } from '../../interfaces';
 
 export const Home = () => {
-  const [user, loading, error] = useAuthState(firebase.auth());
+  const [romSelected, setRomSelected] = useState(0);
+  const [user] = useAuthState(firebase.auth());
+  const romsRef = firebase.firestore().collection('roms');
+  const query = romsRef.limit(10);
+  const [roms] = (useCollectionData(query) as unknown) as RomModel[][];
+  const messagesRef = firebase.firestore().collection('messages');
+  const { push: routerPush } = useHistory();
 
-  console.log(user);
+  const queryMessages = messagesRef
+    .limit(50)
+    .where('romUid', '==', roms?.length ? roms[romSelected].uid : '');
+
+  const [messages] = (useCollectionData(
+    queryMessages,
+  ) as unknown) as Message[][];
 
   const handleSendingMessages = () => {
-    console.log('funcionou handleSendingMessages');
+    console.log('handleSendingMessages');
+  };
+
+  const handleRomClick = (indexRom: number) => {
+    setRomSelected(indexRom);
+  };
+
+  const signOutClick = async () => {
+    firebase.auth().signOut;
+    routerPush('/sign-in');
+  };
+
+  const handleAvatarClick = () => {
+    console.log('handleAvatarClick');
   };
 
   return (
@@ -36,20 +69,25 @@ export const Home = () => {
             <span>MY CHAT</span>
           </header>
           <Profile>
-            <div>
-              {user?.photoURL} <img src={user?.photoURL} />
+            <div onClick={handleAvatarClick} aria-hidden="true">
+              {user?.photoURL && <img src={user?.photoURL} />}
             </div>
             <strong>{user?.displayName}</strong>
             <p>{user?.email}</p>
-            <Button>Sign Out</Button>
+            <Button onClick={signOutClick}>Sign Out</Button>
           </Profile>
           <Roms>
             <strong>ROMS</strong>
             <ul>
-              <li>
-                #Amigos <Bubble value={10} />
-              </li>
-              <li>#Sexo Casual</li>
+              {roms?.map((rom, index) => (
+                <Li
+                  key={rom.uid}
+                  selected={index === romSelected}
+                  onClick={() => handleRomClick(index)}
+                >
+                  #{rom.name}
+                </Li>
+              ))}
             </ul>
           </Roms>
         </Aside>
@@ -58,15 +96,25 @@ export const Home = () => {
             <Hamburger>
               <FaAlignJustify />
             </Hamburger>
-            <Title>#Amigos</Title>
+            <Title>#{roms?.length && roms[romSelected].name}</Title>
             <Nav>
               <FaTools />
               <FaAdjust />
             </Nav>
           </header>
           <Messages>
-            <Card type="right" />
-            <Card type="left" />
+            {messages?.length &&
+              messages.map(message => {
+                return (
+                  <Card
+                    type={user?.uid === message?.user?.uid ? 'left' : 'right'}
+                    avatar={message?.user?.photoURL as string}
+                    displayName={message?.user?.displayName as string}
+                  >
+                    {message.message}
+                  </Card>
+                );
+              })}
           </Messages>
           <footer>
             <SendMessageInput handleSendingMessages={handleSendingMessages} />
