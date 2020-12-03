@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
+import { uid } from 'uid';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import React, { useState } from 'react';
@@ -44,8 +45,25 @@ export const Home = () => {
     queryMessages,
   ) as unknown) as Message[][];
 
-  const handleSendingMessages = () => {
-    console.log('handleSendingMessages');
+  const handleSendingMessages = (value: string) => {
+    if (!value) {
+      return;
+    }
+
+    const newUid = uid();
+
+    const data = {
+      uid: newUid,
+      romUid: roms[romSelected].uid,
+      message: value,
+      user: {
+        uid: user?.uid,
+        displayName: user?.displayName,
+        photoURL: user?.photoURL,
+      },
+    };
+
+    firebase.firestore().collection('messages').doc(newUid).set(data);
   };
 
   const handleRomClick = (indexRom: number) => {
