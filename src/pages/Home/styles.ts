@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   background: gray;
+  overflow: hidden;
 `;
 
 export const Container = styled.div`
@@ -22,7 +23,7 @@ export const Container = styled.div`
 `;
 
 export const Aside = styled.aside`
-  position: absolute;
+  position: fixed;
   width: 278px;
   height: 723px;
   background: ${props => props.theme.colors.background};
@@ -118,6 +119,7 @@ export const Main = styled.div`
   display: flex;
   flex: 1;
   position: relative;
+  overflow: hidden;
 
   header {
     padding: 0px 30px;
@@ -127,6 +129,7 @@ export const Main = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     width: 100%;
     height: 50px;
+    overflow: hidden;
 
     strong {
       font-weight: 400;
@@ -142,7 +145,8 @@ export const Main = styled.div`
     bottom: 20px;
     width: 100%;
     padding: 0px 30px;
-    z-index: 2;
+    z-index: 10;
+    overflow: hidden;
   }
 `;
 
@@ -201,6 +205,31 @@ export const Title = styled.div`
 export const Messages = styled.div`
   padding: 35px;
   height: calc(100% - 100px);
+  overflow-y: scroll;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${props => props.theme.colors.background};
+    border-radius: 4px;
+    margin-top: 3px;
+    margin-bottom: 15px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.colors.extraLightBackground};
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${props => props.theme.colors.lazyLoading};
+  }
 `;
 
 interface LiProps {

@@ -5,7 +5,7 @@
 import { uid } from 'uid';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
@@ -26,7 +26,6 @@ import {
   Title,
   Messages,
   Li,
-  ScrollBar,
 } from './styles';
 import { Message, RomModel } from '../../interfaces';
 
@@ -40,13 +39,12 @@ export const Home = () => {
   const { push: routerPush } = useHistory();
 
   const queryMessages = messagesRef
-    .limit(50)
-    .where('romUid', '==', roms?.length ? roms[romSelected].uid : '');
+    .where('romUid', '==', roms?.length ? roms[romSelected].uid : '')
+    .limit(50);
 
   const [messages] = (useCollectionData(
     queryMessages,
   ) as unknown) as Message[][];
-
   const handleSendingMessages = (value: string) => {
     if (!value) {
       return;
@@ -58,6 +56,7 @@ export const Home = () => {
       uid: newUid,
       romUid: roms[romSelected].uid,
       message: value,
+      createdAt: Date.now(),
       user: {
         uid: user?.uid,
         displayName: user?.displayName,
@@ -65,7 +64,12 @@ export const Home = () => {
       },
     };
 
-    firebase.firestore().collection('messages').doc(newUid).set(data);
+    firebase
+      .firestore()
+      .collection('messages')
+      .doc(newUid)
+      .set(data)
+      .catch(error => console.log(error));
   };
 
   const handleRomClick = (indexRom: number) => {
@@ -77,8 +81,12 @@ export const Home = () => {
     routerPush('/sign-in');
   };
 
+  const dummy = useRef<HTMLDivElement>(null);
+
   const handleAvatarClick = () => {
     console.log('handleAvatarClick');
+
+    dummy?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -111,6 +119,7 @@ export const Home = () => {
             </ul>
           </Roms>
         </Aside>
+
         <Main>
           <header>
             <Hamburger>
@@ -122,23 +131,22 @@ export const Home = () => {
               <FaAdjust />
             </Nav>
           </header>
-          <ScrollBar>
-            <Messages>
-              {messages?.length &&
-                messages.map(message => {
-                  return (
-                    <Card
-                      type={user?.uid === message?.user?.uid ? 'left' : 'right'}
-                      avatar={message?.user?.photoURL as string}
-                      displayName={message?.user?.displayName as string}
-                    >
-                      {message.message}
-                    </Card>
-                  );
-                })}
-            </Messages>
-          </ScrollBar>
+          <Messages>
+            {messages?.length &&
+              messages.map(message => {
+                return (
+                  <Card
+                    type={user?.uid === message?.user?.uid ? 'left' : 'right'}
+                    avatar={message?.user?.photoURL as string}
+                    displayName={message?.user?.displayName as string}
+                  >
+                    {message.message}
+                  </Card>
+                );
+              })}
 
+            <div ref={dummy} />
+          </Messages>
           <footer>
             <SendMessageInput
               handleSendingMessagesProp={handleSendingMessages}
