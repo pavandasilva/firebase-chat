@@ -5,7 +5,7 @@
 import { uid } from 'uid';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaAdjust, FaTools, FaAlignJustify } from 'react-icons/fa';
 import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
@@ -30,6 +30,8 @@ import {
 import { Message, RomModel } from '../../interfaces';
 
 export const Home = () => {
+  const dummy = useRef<HTMLDivElement>(null);
+  const messagesElem = useRef<HTMLDivElement>(null);
   const [romSelected, setRomSelected] = useState(0);
   const [user] = useAuthState(firebase.auth());
   const romsRef = firebase.firestore().collection('roms');
@@ -81,13 +83,13 @@ export const Home = () => {
     routerPush('/sign-in');
   };
 
-  const dummy = useRef<HTMLDivElement>(null);
-
   const handleAvatarClick = () => {
     console.log('handleAvatarClick');
-
-    dummy?.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    dummy?.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages?.length]);
 
   return (
     <Wrapper>
@@ -131,7 +133,7 @@ export const Home = () => {
               <FaAdjust />
             </Nav>
           </header>
-          <Messages>
+          <Messages ref={messagesElem}>
             {messages?.length &&
               messages.map(message => {
                 return (

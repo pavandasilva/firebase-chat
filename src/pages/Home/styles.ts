@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -206,6 +205,7 @@ export const Messages = styled.div`
   padding: 35px;
   height: calc(100% - 100px);
   overflow-y: scroll;
+  margin-top: 10px;
 
   /* width */
   ::-webkit-scrollbar {
@@ -263,23 +263,4 @@ export const Li = styled.li<LiProps>`
       color: ${props.theme.colors.primaryText};
       margin-left: 3px;
     `}
-`;
-
-export const ScrollBar = styled(PerfectScrollbar)`
-  margin-top: 6px;
-  height: calc(100% - 130px);
-
-  &.ps .ps__rail-y.ps--clicking {
-    background-color: ${props => props.theme.colors.background};
-    opacity: 0.9;
-  }
-  &.ps .ps__rail-x:hover,
-  &.ps .ps__rail-y:hover,
-  &.ps .ps__rail-x:focus,
-  &.ps .ps__rail-y:focus,
-  &.ps .ps__rail-x.ps--clicking,
-  &.ps .ps__rail-y.ps--clicking {
-    background-color: ${props => props.theme.colors.background};
-    opacity: 0.9;
-  }
 `;
