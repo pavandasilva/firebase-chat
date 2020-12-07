@@ -31,6 +31,7 @@ import { Message, RomModel } from '../../interfaces';
 
 export const Home = () => {
   const dummy = useRef<HTMLDivElement>(null);
+  const { push: routerPush } = useHistory();
   const messagesElem = useRef<HTMLDivElement>(null);
   const [romSelected, setRomSelected] = useState(0);
   const [user] = useAuthState(firebase.auth());
@@ -38,15 +39,15 @@ export const Home = () => {
   const query = romsRef.limit(10);
   const [roms] = (useCollectionData(query) as unknown) as RomModel[][];
   const messagesRef = firebase.firestore().collection('messages');
-  const { push: routerPush } = useHistory();
 
   const queryMessages = messagesRef
     .where('romUid', '==', roms?.length ? roms[romSelected].uid : '')
-    .limit(50);
+    .orderBy('createdAt');
 
   const [messages] = (useCollectionData(
     queryMessages,
   ) as unknown) as Message[][];
+
   const handleSendingMessages = (value: string) => {
     if (!value) {
       return;
@@ -98,14 +99,18 @@ export const Home = () => {
           <header>
             <span>MY CHAT</span>
           </header>
-          <Profile>
+
+          <Profile loading={!user}>
             <div onClick={handleAvatarClick} aria-hidden="true">
               {user?.photoURL && <img src={user?.photoURL} />}
             </div>
             <strong>{user?.displayName}</strong>
             <p>{user?.email}</p>
-            <Button onClick={signOutClick}>Sign Out</Button>
+            <Button disabled={!user} onClick={signOutClick}>
+              Sign Out
+            </Button>
           </Profile>
+
           <Roms>
             <strong>ROMS</strong>
             <ul>

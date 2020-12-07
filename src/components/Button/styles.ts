@@ -19,4 +19,10 @@ export const Container = styled.button`
     color: ${props => props.theme.colors.primaryText};
     background-color: ${props => darken(0.02, props.theme.colors.primary)};
   }
+
+  &:disabled {
+    border: 1px solid ${props => props.theme.colors.background};
+    background-color: ${props => props.theme.colors.lazyLoading};
+    color: ${props => props.theme.colors.primaryText};
+  }
 `;

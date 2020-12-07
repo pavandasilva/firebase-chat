@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { transparentize } from 'polished';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -46,7 +47,11 @@ export const Aside = styled.aside`
   }
 `;
 
-export const Profile = styled.section`
+interface ProfileProps {
+  loading: boolean;
+}
+
+export const Profile = styled.section<ProfileProps>`
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -59,7 +64,26 @@ export const Profile = styled.section`
     margin-top: 7px;
     font-size: 12px;
     letter-spacing: 0.085em;
+    display: inline-block;
     color: ${props => props.theme.colors.primaryText};
+    padding: 1px;
+
+    background-color: ${props => {
+      let transparence = 1;
+
+      if (props.loading) {
+        transparence = 0;
+      }
+
+      return transparentize(transparence, props.theme.colors.lazyLoading);
+    }};
+
+    transition: all 0.3s;
+
+    min-width: 170px;
+    width: auto;
+    height: 18px;
+    text-align: center;
   }
 
   p {
@@ -67,6 +91,25 @@ export const Profile = styled.section`
     font-size: 12px;
     letter-spacing: 0.085em;
     color: ${props => props.theme.colors.lightText};
+    display: inline-block;
+    padding: 1px;
+
+    min-width: 200px;
+    width: auto;
+    height: 18px;
+    text-align: center;
+
+    transition: all 0.3s;
+
+    background-color: ${props => {
+      let transparence = 1;
+
+      if (props.loading) {
+        transparence = 0;
+      }
+
+      return transparentize(transparence, props.theme.colors.lazyLoading);
+    }};
   }
 
   div {

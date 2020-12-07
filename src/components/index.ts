@@ -4,3 +4,4 @@ export * from './NavSignRegister';
 export * from './Spinner';
 export * from './Bubble';
 export * from './SendMessageInput';
+export * from './ProfileLazyLoading';
