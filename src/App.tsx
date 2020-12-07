@@ -21,10 +21,24 @@ if (!firebase.apps.length) {
   });
 }
 
+type Theme = 'dark' | 'light';
+
 function App() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<Theme>(() => {
+    let storageTheme = localStorage.getItem('theme') as Theme;
+
+    if (!storageTheme) {
+      storageTheme = 'dark';
+    }
+
+    return storageTheme;
+  });
   const toogleTheme = useCallback(() => {
-    setTheme(t => (t === 'dark' ? 'light' : 'dark'));
+    setTheme(t => {
+      const newTheme = t === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
+    });
   }, []);
 
   return (
