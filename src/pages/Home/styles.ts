@@ -281,16 +281,19 @@ interface LiProps {
 }
 
 export const Li = styled.li<LiProps>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: inline-block;
+  text-align: left;
   margin-top: 15px;
   text-decoration: none;
   font-size: 14px;
   letter-spacing: 0.1em;
   color: ${props => props.theme.colors.lightText};
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.3s;
+  min-height: 20px;
+  min-width: 100px;
+  width: auto;
+  padding: 1px;
 
   &:hover {
     color: ${props => props.theme.colors.primaryText};
@@ -307,4 +310,20 @@ export const Li = styled.li<LiProps>`
       color: ${props.theme.colors.primaryText};
       margin-left: 3px;
     `}
+`;
+
+export const Loading = styled.div`
+  position: absolute;
+  background-color: ${transparentize(0.4, 'black')};
+  padding: 1px;
+  left: -58px;
+  top: -58px;
+  width: calc(100% + 58px);
+  height: calc(100vh + 58px);
+  z-index: 999;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

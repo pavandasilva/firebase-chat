@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import firebase from 'firebase/app';
 import { Home, Register, SignIn } from './pages';
 import GlobalStyle from './styles/global';
-import { darkTheme } from './styles/themes';
+import { darkTheme, lightTheme } from './styles/themes';
 
 import 'firebase/firestore';
 
@@ -22,12 +22,17 @@ if (!firebase.apps.length) {
 }
 
 function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const toogleTheme = useCallback(() => {
+    setTheme(t => (t === 'dark' ? 'light' : 'dark'));
+  }, []);
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home toogleTheme={toogleTheme} />
           </Route>
           <Route path="/register">
             <Register />

@@ -11,7 +11,7 @@ import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
-import { Card, SendMessageInput } from '../../components';
+import { Card, SendMessageInput, Spinner } from '../../components';
 import 'firebase/firestore';
 
 import {
@@ -26,10 +26,15 @@ import {
   Title,
   Messages,
   Li,
+  Loading,
 } from './styles';
 import { Message, RomModel } from '../../interfaces';
 
-export const Home = () => {
+interface HomeProps {
+  toogleTheme: () => void;
+}
+
+export const Home = ({ toogleTheme }: HomeProps) => {
   const dummy = useRef<HTMLDivElement>(null);
   const { push: routerPush } = useHistory();
   const messagesElem = useRef<HTMLDivElement>(null);
@@ -135,7 +140,7 @@ export const Home = () => {
             <Title>#{roms?.length && roms[romSelected].name}</Title>
             <Nav>
               <FaTools />
-              <FaAdjust />
+              <FaAdjust onClick={toogleTheme} />
             </Nav>
           </header>
           <Messages ref={messagesElem}>
@@ -153,7 +158,6 @@ export const Home = () => {
                   </Card>
                 );
               })}
-
             <div ref={dummy} />
           </Messages>
           <footer>
