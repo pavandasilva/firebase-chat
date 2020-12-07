@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { formatDistance, parseISO } from 'date-fns';
 import { Container, Avatar, Info, Text, Header } from './styles';
 
 interface CardProps {
@@ -6,6 +7,7 @@ interface CardProps {
   children: ReactNode;
   avatar: string;
   displayName: string;
+  createdAt: string;
 }
 
 interface DomAvatar {
@@ -16,7 +18,13 @@ const DomAvatar = ({ photoUrl }: DomAvatar) => (
   <Avatar>{photoUrl && <img src={photoUrl} alt="" />}</Avatar>
 );
 
-export const Card = ({ type, children, avatar, displayName }: CardProps) => {
+export const Card = ({
+  type,
+  children,
+  avatar,
+  displayName,
+  createdAt,
+}: CardProps) => {
   return (
     <Container type={type}>
       <Header type={type}>
@@ -24,7 +32,12 @@ export const Card = ({ type, children, avatar, displayName }: CardProps) => {
 
         <Info type={type}>
           <strong>{displayName}</strong>
-          <span>Today 12:30am</span>
+          <span>
+            {formatDistance(
+              parseISO(createdAt),
+              parseISO(new Date().toISOString()),
+            )}
+          </span>
         </Info>
 
         {type === 'right' && <DomAvatar photoUrl={avatar} />}

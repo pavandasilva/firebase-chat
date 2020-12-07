@@ -7,7 +7,6 @@ import GlobalStyle from './styles/global';
 import { darkTheme } from './styles/themes';
 
 import 'firebase/firestore';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({

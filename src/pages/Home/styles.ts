@@ -129,6 +129,7 @@ export const Main = styled.div`
     width: 100%;
     height: 50px;
     overflow: hidden;
+    z-index: 10;
 
     strong {
       font-weight: 400;
@@ -205,7 +206,7 @@ export const Messages = styled.div`
   padding: 35px;
   height: calc(100% - 100px);
   overflow-y: scroll;
-  margin-top: 10px;
+  margin-top: 7px 0px;
 
   /* width */
   ::-webkit-scrollbar {

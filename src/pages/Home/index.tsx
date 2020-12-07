@@ -58,7 +58,7 @@ export const Home = () => {
       uid: newUid,
       romUid: roms[romSelected].uid,
       message: value,
-      createdAt: Date.now(),
+      createdAt: new Date().toISOString(),
       user: {
         uid: user?.uid,
         displayName: user?.displayName,
@@ -134,13 +134,15 @@ export const Home = () => {
             </Nav>
           </header>
           <Messages ref={messagesElem}>
-            {messages?.length &&
+            {!!messages?.length &&
               messages.map(message => {
+                console.log(message);
                 return (
                   <Card
                     type={user?.uid === message?.user?.uid ? 'left' : 'right'}
                     avatar={message?.user?.photoURL as string}
                     displayName={message?.user?.displayName as string}
+                    createdAt={message?.createdAt as string}
                   >
                     {message.message}
                   </Card>
