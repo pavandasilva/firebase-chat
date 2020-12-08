@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { Link, useHistory } from 'react-router-dom';
-import { FaLock, FaEnvelope } from 'react-icons/fa';
+import { FaLock, FaEnvelope, FaGoogle } from 'react-icons/fa';
 import {
   ErrorFirebase,
   SignInWithEmailAndPassword,
@@ -53,6 +55,11 @@ export const SignIn = () => {
     setRememberMe(rem => !rem);
   }, []);
 
+  const handleGoogleOnClick = useCallback(() => {
+    const googleProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(googleProvider);
+  }, []);
+
   return (
     <Wrapper>
       <Container>
@@ -95,6 +102,16 @@ export const SignIn = () => {
           </Inputs>
           <Button type="submit" showSpinner={requesting}>
             Sign In Now
+          </Button>
+          <Button
+            type="button"
+            showSpinner={false}
+            onClick={handleGoogleOnClick}
+          >
+            <div>
+              <FaGoogle />
+            </div>
+            <span>Sign in with Google</span>
           </Button>
         </form>
       </Container>

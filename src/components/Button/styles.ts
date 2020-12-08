@@ -2,6 +2,10 @@ import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   transition: all 0.2s;
   margin-top: 30px;
   background-color: ${props => props.theme.colors.primary};
@@ -24,5 +28,21 @@ export const Container = styled.button`
     border: 1px solid ${props => props.theme.colors.background};
     background-color: ${props => props.theme.colors.lazyLoading};
     color: ${props => props.theme.colors.primaryText};
+  }
+
+  svg {
+    margin-right: 7px;
+  }
+
+  & + button {
+    margin-top: 7px;
+    background-color: ${props => props.theme.colors.danger};
+    border: ${props => props.theme.colors.danger};
+    color: '#c1c1c1';
+
+    &:hover {
+      background-color: ${props => darken(0.04, props.theme.colors.danger)};
+      border: ${props => darken(0.04, props.theme.colors.danger)};
+    }
   }
 `;
