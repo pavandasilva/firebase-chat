@@ -6,6 +6,7 @@ export const darkTheme = {
     extraLightBackground: '#3F4248',
     lightBackground: '#36393F',
     background: '#2F3136',
+    bodyBackground: '#474747',
     lightPrimary: '#669695',
     danger: '#F04747',
     sucess: '#1A5C3C',

@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from './styles';
 
-interface NavSignRegister {
+interface NavSignRegisterProps {
   currentTab: 'signin' | 'register';
 }
 
-export const NavSignRegister = ({ currentTab }: NavSignRegister) => {
+export const NavSignRegister = ({ currentTab }: NavSignRegisterProps) => {
   return (
     <Container currentTab={currentTab}>
-      <Link to="signin">
+      <Link to="sign-in">
         <span>SIGN IN</span>
       </Link>
       <Link to="register">

@@ -11,7 +11,7 @@ import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
-import { Card, SendMessageInput, Spinner } from '../../components';
+import { Card, SendMessageInput } from '../../components';
 import 'firebase/firestore';
 
 import {
@@ -26,7 +26,6 @@ import {
   Title,
   Messages,
   Li,
-  Loading,
 } from './styles';
 import { Message, RomModel } from '../../interfaces';
 
